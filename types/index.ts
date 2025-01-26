@@ -12,3 +12,16 @@ export interface Recruitment {
   contact: string;
   why: string;
 }
+
+export interface HackathonApplication {
+  _id?: string;
+  teamName: string;
+  members: string[];
+  activityTitle: string;
+  description: string;
+  materials: string;
+  space: string;
+  sustainability: string;
+  teamDynamics: string;
+  createdAt?: Date;
+}
