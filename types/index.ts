@@ -4,3 +4,11 @@ export interface Team {
   members: string;
   points: number;
 }
+
+export interface Recruitment {
+  _id?: string;
+  name: string;
+  email: string;
+  contact: string;
+  why: string;
+}
