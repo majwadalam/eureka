@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import SpaceWarp from "@/components/space-warp";
 import { Button } from "@/components/ui/button";
@@ -29,10 +29,10 @@ export default function AdminPage() {
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch proposals on component mount
-  useState(() => {
+  // Fix the useEffect hook
+  useEffect(() => {
     fetchProposals();
-  });
+  }, []); // Empty dependency array for mount-only execution
 
   async function fetchProposals() {
     try {

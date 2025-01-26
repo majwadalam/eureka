@@ -3,13 +3,15 @@ import SpaceWarp from "@/components/space-warp";
 import connectDB from "@/lib/connectDb";
 import Hackathon from "@/models/Hackathon";
 import Link from "next/link";
+import { unstable_noStore } from 'next/cache';
 
 async function getProposals() {
+    unstable_noStore();
     try {
         await connectDB();
         const proposals = await Hackathon.find({})
             .sort({ createdAt: -1 })
-            .select('teamName proposalText proposalLink createdAt')
+            .select('teamName createdAt')
             .lean();
 
         return proposals;
@@ -46,24 +48,6 @@ export default async function ProposalsPage() {
                                         Submitted on {new Date(proposal.createdAt).toLocaleDateString()}
                                     </p>
                                 </CardHeader>
-                                <CardContent>
-                                    {proposal.proposalText ? (
-                                        <p className="text-gray-200 line-clamp-3">
-                                            {proposal.proposalText}
-                                        </p>
-                                    ) : proposal.proposalLink ? (
-                                        <a
-                                            href={proposal.proposalLink}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="text-blue-400 hover:text-blue-300 underline"
-                                        >
-                                            View Proposal Document
-                                        </a>
-                                    ) : (
-                                        <p className="text-gray-400 italic">No details available</p>
-                                    )}
-                                </CardContent>
                             </Card>
                         ))}
 
